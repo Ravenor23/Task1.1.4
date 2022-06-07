@@ -12,8 +12,8 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private static final String CREATE_TABLE = "CREATE TABLE Users(id long, name varchar(45), lastName varchar(45), age tinyint)";
-    private static final String DROP_TABLE = "DROP TABLE Users";
+    private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS Users(id long, name varchar(45), lastName varchar(45), age tinyint)";
+    private static final String DROP_TABLE = "DROP TABLE IF EXISTS Users";
     private static final String SAVE_USER = "INSERT INTO Users VALUES(?,?,?,?)";
     private static final String REMOVE_BY_ID = "DELETE FROM Users WHERE id=?";
     private static final String GET_ALL = "SELECT * FROM Users";
@@ -35,7 +35,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Statement statement = Util.getConnection().createStatement()) {
             statement.execute(DROP_TABLE);
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 
